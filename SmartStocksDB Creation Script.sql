@@ -287,6 +287,7 @@ CREATE TABLE "SmartStocksDB"."User" (
 	id int4 DEFAULT nextval('"SmartStocksDB".user_id_seq'::regclass) NOT NULL,
 	"name" varchar NOT NULL,
 	email varchar NOT NULL,
+	password varchar NOT NULL,
 	"riskProfileId" int4 NULL,
 	"capitalAmount" numeric NULL,
 	"termId" int4 NULL,
