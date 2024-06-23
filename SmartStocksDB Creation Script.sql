@@ -2,6 +2,21 @@
 
 CREATE SCHEMA "SmartStocksDB" AUTHORIZATION "PatrickGustavo";
 
+-- DROP SEQUENCE "SmartStocksDB".portfoliohistory_id_seq;
+
+CREATE SEQUENCE "SmartStocksDB".portfoliohistory_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE "SmartStocksDB".portfoliohistory_id_seq OWNER TO "PatrickGustavo";
+GRANT ALL ON SEQUENCE "SmartStocksDB".portfoliohistory_id_seq TO "PatrickGustavo";
+
 -- DROP SEQUENCE "SmartStocksDB".benchmark_id_seq;
 
 CREATE SEQUENCE "SmartStocksDB".benchmark_id_seq
@@ -352,7 +367,7 @@ GRANT ALL ON TABLE "SmartStocksDB"."PortfolioComposition" TO "PatrickGustavo";
 -- DROP TABLE "SmartStocksDB"."PortfolioHistory";
 
 CREATE TABLE "SmartStocksDB"."PortfolioHistory" (
-	id int4 DEFAULT nextval('"SmartStocksDB".investmenthistory_id_seq'::regclass) NOT NULL,
+	id int4 DEFAULT nextval('"SmartStocksDB".portfoliohistory_id_seq'::regclass) NOT NULL,
 	"portfolioId" int4 NOT NULL,
 	"performanceDate" date NOT NULL,
 	"performancePercentageDay" numeric NOT NULL,
