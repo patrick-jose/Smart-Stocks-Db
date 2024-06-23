@@ -384,7 +384,35 @@ CREATE TABLE "SmartStocksDB"."PortfolioHistory" (
 ALTER TABLE "SmartStocksDB"."PortfolioHistory" OWNER TO "PatrickGustavo";
 GRANT ALL ON TABLE "SmartStocksDB"."PortfolioHistory" TO "PatrickGustavo";
 
+-- DROP SEQUENCE "SmartStocksDB".role_id_seq;
 
+CREATE SEQUENCE "SmartStocksDB".role_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE "SmartStocksDB".role_id_seq OWNER TO "PatrickGustavo";
+GRANT ALL ON SEQUENCE "SmartStocksDB".role_id_seq TO "PatrickGustavo";
+
+CREATE TABLE "SmartStocksDB"."Role" (
+	id int4 DEFAULT nextval('"SmartStocksDB".role_id_seq'::regclass) NOT NULL,
+	"name" varchar NOT NULL,
+	CONSTRAINT role_pk PRIMARY KEY (id),
+	CONSTRAINT role_unique UNIQUE (name)
+);
+
+CREATE TABLE "SmartStocksDB"."UserRole" (
+	"userId" int4 NOT NULL,
+	"roleId" int4 NOT NULL,
+	CONSTRAINT userrole_user_fk FOREIGN KEY ("userId") REFERENCES "SmartStocksDB"."User"(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT userrole_role_fk FOREIGN KEY ("roleId") REFERENCES "SmartStocksDB"."Role"(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT userrole_unique UNIQUE ("userId", "roleId")
+);
 
 
 -- Permissions
