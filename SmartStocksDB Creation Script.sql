@@ -288,6 +288,7 @@ CREATE TABLE "SmartStocksDB"."User" (
 	"name" varchar NOT NULL,
 	email varchar NOT NULL,
 	password varchar NOT NULL,
+	"isEnabled" boolean NOT NULL,
 	"riskProfileId" int4 NULL,
 	"capitalAmount" numeric NULL,
 	"termId" int4 NULL,
